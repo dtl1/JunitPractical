@@ -31,19 +31,25 @@ public final class Factory implements IFactory {
 
     @Override
     public IVendingMachineProduct makeVendingMachineProduct(String laneCode, String description) {
-        return new VendingMachineProduct(laneCode, description);
+        laneCode = laneCode.toUpperCase();
+
+        char[] laneChars = laneCode.toCharArray();
+
+        if (laneChars.length != 2 || (int) laneChars[0] > 90 || (int) laneChars[0] < 65 || (int) laneChars[1] > 57 || (int) laneChars[1] < 48) {
+            return null;
+        } else {
+            return new VendingMachineProduct(laneCode, description);
+        }
     }
 
     @Override
     public IProductRecord makeProductRecord(IVendingMachineProduct vendingMachineProduct) {
-        // TODO Auto-generated method stub
-        return null;
+        return new ProductRecord(vendingMachineProduct);
     }
 
     @Override
     public IVendingMachine makeVendingMachine() {
-        // TODO Auto-generated method stub
-        return null;
+        return new VendingMachine();
     }
 
 }
